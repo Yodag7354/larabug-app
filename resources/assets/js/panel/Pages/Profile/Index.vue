@@ -45,6 +45,24 @@
                         Receive newsletter
                     </label>
                 </div>
+
+                <h3 class="text-base font-bold">Filters</h3>
+
+                <div class="flex items-center space-x-2">
+                  <input
+                      :class="[
+          'text-primary-600 rounded border-gray-300 transition',
+          'focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-offset-0',
+        ]"
+                      id="show_unique"
+                      type="checkbox"
+                      v-model="form.settings.filter.show_unique"
+                  />
+
+                  <label class="text-sm font-medium" for="show_unique">
+                    Show unique exceptions by default
+                  </label>
+                </div>
             </form>
 
             <template #footer>

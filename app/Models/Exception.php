@@ -150,6 +150,10 @@ class Exception extends Model
      */
     public function scopeShowUnique($query, $toggle)
     {
+        if (auth()->user()->getSetting('filter.show_unique')) {
+            $toggle = true;
+        }
+
         if (!$toggle) {
             return $query;
         }

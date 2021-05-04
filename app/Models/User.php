@@ -72,7 +72,10 @@ class User extends Authenticatable
             return [
                 'code_preview' => [
                     'rainbow' => false,
-                ]
+                ],
+                'filter' => [
+                    'show_unique' => false,
+                ],
             ];
         }
 
@@ -81,6 +84,13 @@ class User extends Authenticatable
         }
 
         return json_decode($value, true);
+    }
+
+    public function getSetting($key)
+    {
+        $settings = array_dot($this->settings ?? []);
+
+        return $settings[$key] ?? null;
     }
 
     public function getFirstNameAttribute()

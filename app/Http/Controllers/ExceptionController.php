@@ -111,6 +111,20 @@ class ExceptionController extends Controller
         return redirect()->route('panel.exceptions.show', [$id, $exception])->with('success', 'Exception has been marked as fixed');
     }
 
+    public function delete($id, $exception)
+    {
+        $project = auth()->user()->projects()->findOrFail($id);
+
+        $exception = $project->exceptions()->findOrFail($exception);
+
+        $exception->delete();
+
+        /*
+         * Return redirect back to save filter
+         */
+        return redirect()->route('panel.projects.show', [$id])->with('success', 'Exception has been removed');
+    }
+
     public function togglePublic(Request $request, $id, $exception)
     {
         $project = $request->user()->projects()->findOrFail($id);

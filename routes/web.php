@@ -62,6 +62,7 @@ Route::middleware('auth')->prefix('panel')->name('panel.')->group(function () {
     Route::post('projects/{id}/exceptions/delete-selected', [ExceptionController::class, 'deleteSelected'])->name('exceptions.delete-selected');
     Route::resource('projects/{id}/exceptions', ExceptionController::class);
     Route::post('projects/{id}/exceptions/{exception}/fixed', [ExceptionController::class, 'fixed'])->name('exceptions.fixed');
+    Route::post('projects/{id}/exceptions/{exception}/delete', [ExceptionController::class, 'delete'])->name('exceptions.delete');
     Route::post('projects/{id}/exceptions/{exception}/toggle-public', [ExceptionController::class, 'togglePublic'])->name('exceptions.toggle-public');
     Route::post('projects/{id}/exceptions/mark-as', [ExceptionController::class, 'markAs'])->name('exceptions.mark-as');
     Route::post('projects/{id}/exceptions/mark-all-fixed', [ExceptionController::class, 'markAllAsFixed'])->name('exceptions.mark-all-fixed');

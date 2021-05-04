@@ -12,6 +12,21 @@
     <div class="flex flex-row flex-1">
         <aside class="w-1/4 h-full bg-white border-r border-gray-200">
             <dl class="px-6 py-4 space-y-4">
+                <div class="flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-2">
+                    <div v-if="exception.status !== 'FIXED'" class="w-full lg:w-auto">
+                      <Button success @click="fixed" class="w-full lg:w-auto">
+                        <svg class="w-6 h-6 pr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Mark fixed</Button>
+                    </div>
+
+                    <div class="w-full lg:w-auto">
+                      <Button danger @click="delete" class="w-full lg:w-auto">
+                        <svg class="w-6 h-6 pr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        Delete
+                      </Button>
+                    </div>
+                </div>
+
                 <div>
                     <dt class="text-sm font-medium">Method</dt>
                     <dd>
@@ -72,10 +87,6 @@
                         </div>
                     </dd>
                 </div>
-
-                <div v-if="exception.status !== 'FIXED'">
-                    <Button success @click="fixed">Mark as fixed</Button>
-                </div>
             </dl>
         </aside>
 
@@ -131,13 +142,13 @@
                     >
                         User
                     </button>
-                    <button
+<!--                    <button
                             class="h-12 px-3 text-xs font-medium text-gray-500 uppercase border-b-2 border-transparent rounded-none"
                             :class="[ tab === 'feedback' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500']"
                             @click="tab = 'feedback'"
                     >
                         Feedback
-                    </button>
+                    </button>-->
                 </header>
             </div>
 
@@ -257,6 +268,9 @@ export default {
         },
         fixed() {
             this.$inertia.post(this.route('panel.exceptions.fixed', [this.project.id, this.exception.id]));
+        },
+        delete() {
+            this.$inertia.post(this.route('panel.exceptions.delete', [this.project.id, this.exception.id]));
         }
     }
 }

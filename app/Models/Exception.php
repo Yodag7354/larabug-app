@@ -5,6 +5,7 @@ namespace App\Models;
 use Kblais\Uuid\Uuid;
 use DateTimeInterface;
 use EloquentFilter\Filterable;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\ExceptionWasCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -142,6 +143,22 @@ class Exception extends Model
     public function scopeNotMailed($query)
     {
         return $query->whereMailed(false);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function scopeShowUnique($query, $toggle)
+    {
+        if (!$toggle) {
+            return $query;
+        }
+
+        return $query->whereIn('id', function (Builder $query) {
+            return $query->from(static::getTable())
+                ->selectRaw('max(`id`)')
+                ->groupBy('exception');
+        });
     }
 
     /**

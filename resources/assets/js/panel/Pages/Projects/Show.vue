@@ -77,6 +77,18 @@
                 />
             </header>
 
+            <header class="flex items-center px-6 pb-4 space-x-4 bg-primary-50">
+              <input
+                  :class="[
+                      'text-primary-600 rounded border-gray-300 transition',
+                      'focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-offset-0',
+                  ]"
+                  id="filter-showunique"
+                  type="checkbox"
+                  v-model="form.show_unique" />
+              <label for="filter-showunique">Only show unique</label>
+            </header>
+
             <ul class="divide-y divide-gray-200">
                 <li v-for="exception in exceptions.data" :key="exception.id">
                     <div :href="route('panel.exceptions.show', {id: project.id, exception: exception })"
@@ -182,7 +194,8 @@ export default {
                 project: this.project.id,
                 search: this.filters.search,
                 status: this.filters.status,
-                has_feedback: this.filters.has_feedback
+                has_feedback: this.filters.has_feedback,
+                show_unique: this.filters.show_unique,
             },
         }
     },

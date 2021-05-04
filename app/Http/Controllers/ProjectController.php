@@ -58,14 +58,15 @@ class ProjectController extends Controller
         $exceptions = $project
             ->exceptions()
             ->filter($request->only('search', 'status', 'has_feedback'))
-            ->withCount('feedback')
             ->latest()
+            ->showUnique(request()->get('show_unique'))
+            ->withCount('feedback')
             ->paginate(10);
 
         return inertia('Projects/Show', [
             'project' => $project,
             'exceptions' => $exceptions->appends($request->except('page')),
-            'filters' => request()->all('search', 'status', 'has_feedback'),
+            'filters' => request()->all('search', 'status', 'has_feedback', 'show_unique'),
         ]);
     }
 
